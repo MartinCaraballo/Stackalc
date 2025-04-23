@@ -12,6 +12,7 @@ mod sub;
 mod clear;
 mod ldv;
 mod stv;
+mod nop;
 
 use std::collections::HashMap;
 pub use add::Add;
@@ -28,6 +29,7 @@ pub use sub::Sub;
 pub use clear::Clear;
 pub use ldv::Ldv;
 pub use stv::Stv;
+pub use nop::Nop;
 
 pub trait Instruction {
     fn execute(&mut self, stack: &mut Vec<f64>, memory: &mut HashMap<String, f64>, instruction: &String) {

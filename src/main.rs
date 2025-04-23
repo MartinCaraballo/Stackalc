@@ -1,7 +1,7 @@
 mod instruction;
 
 use std::collections::HashMap;
-use instruction::{Add, Ceq, Cgt, Clt, Div, Dup, Ldc, Mul, Neg, Pop, Sub, Clear, Ldv, Stv};
+use instruction::{Add, Ceq, Cgt, Clt, Div, Dup, Ldc, Mul, Neg, Pop, Sub, Clear, Ldv, Stv, Nop};
 use crate::instruction::Instruction;
 
 fn main() {
@@ -21,7 +21,8 @@ fn main() {
     let sub = Sub::new(pop);
     let clear = Clear::new(sub);
     let ldv = Ldv::new(clear);
-    let mut stv = Stv::new(ldv);
+    let stv = Stv::new(ldv);
+    let mut nop = Nop::new(stv);
 
 
     loop {
@@ -30,7 +31,7 @@ fn main() {
         let instructions: Vec<&str> = instructions.split(' ').collect();
 
         for instruction in instructions {
-            stv.execute(stack, memory, &instruction.trim().to_string());
+            nop.execute(stack, memory, &instruction.trim().to_string());
         }
         println!("{:?}", stack)
     }
