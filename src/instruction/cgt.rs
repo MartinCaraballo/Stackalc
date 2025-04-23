@@ -1,4 +1,4 @@
-use super::{into_next, Ceq, Instruction};
+use super::{into_next, Instruction};
 
 #[derive(Default)]
 pub struct Cgt {
@@ -15,7 +15,7 @@ impl Cgt {
 
 impl Instruction for Cgt {
 
-    fn handle(&mut self, stack: &mut Vec<f64>, instruction: &String) {
+    fn handle(&mut self, stack: &mut Vec<f64>, _instruction: &String) {
         let first_value = stack.pop().unwrap();
         let second_value = stack.pop().unwrap();
 
@@ -26,11 +26,11 @@ impl Instruction for Cgt {
         }
     }
 
-    fn next(mut self) -> &mut Option<Box<dyn Instruction>> {
+    fn next(&mut self) -> &mut Option<Box<dyn Instruction>> {
         &mut self.next
     }
 
-    fn can_handle(&self, instruction: &String) -> bool {
+    fn can_handle(&mut self, instruction: &String) -> bool {
         instruction.to_lowercase().eq("cgt")
     }
 }

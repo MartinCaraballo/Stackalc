@@ -1,4 +1,3 @@
-use std::ops::Mul;
 use super::{into_next, Instruction};
 
 #[derive(Default)]
@@ -16,10 +15,10 @@ impl Dup {
 
 impl Instruction for Dup {
 
-    fn handle(&mut self, stack: &mut Vec<f64>, instruction: &String) {
+    fn handle(&mut self, stack: &mut Vec<f64>, _instruction: &String) {
         let top = stack.last().unwrap();
 
-        stack.push(top.mul(2))
+        stack.push(top * 2.0)
     }
 
     fn next(&mut self) -> &mut Option<Box<dyn Instruction>> {

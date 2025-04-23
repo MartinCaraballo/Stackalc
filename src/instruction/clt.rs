@@ -15,7 +15,7 @@ impl Clt {
 
 impl Instruction for Clt {
 
-    fn handle(&mut self, stack: &mut Vec<f64>, instruction: &String) {
+    fn handle(&mut self, stack: &mut Vec<f64>, _instruction: &String) {
         let first_value = stack.pop().unwrap();
         let second_value = stack.pop().unwrap();
 
@@ -30,7 +30,7 @@ impl Instruction for Clt {
         &mut self.next
     }
 
-    fn can_handle(&self, instruction: &String) -> bool {
+    fn can_handle(&mut self, instruction: &String) -> bool {
         instruction.to_lowercase().eq("clt")
     }
 }

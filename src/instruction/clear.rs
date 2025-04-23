@@ -1,11 +1,11 @@
 use super::{into_next, Instruction};
 
 #[derive(Default)]
-pub struct Neg {
+pub struct Clear {
     next: Option<Box<dyn Instruction>>,
 }
 
-impl Neg {
+impl Clear {
     pub fn new(next: impl Instruction + 'static) -> Self {
         Self {
             next: into_next(next),
@@ -13,12 +13,9 @@ impl Neg {
     }
 }
 
-impl Instruction for Neg {
-
+impl Instruction for Clear {
     fn handle(&mut self, stack: &mut Vec<f64>, _instruction: &String) {
-        let value = stack.pop().unwrap();
-
-        stack.push(-value)
+        stack.clear();
     }
 
     fn next(&mut self) -> &mut Option<Box<dyn Instruction>> {
@@ -26,6 +23,6 @@ impl Instruction for Neg {
     }
 
     fn can_handle(&mut self, instruction: &String) -> bool {
-        instruction.to_lowercase().eq("neg")
+        instruction.to_lowercase().eq("clear")
     }
 }

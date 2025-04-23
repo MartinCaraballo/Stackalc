@@ -14,11 +14,11 @@ impl Pop {
 }
 
 impl Instruction for Pop {
-    fn handle(&mut self, stack: &mut Vec<f64>, instruction: &String) {
+    fn handle(&mut self, stack: &mut Vec<f64>, _instruction: &String) {
         stack.pop();
     }
     
-    fn next(&self) -> &mut Option<Box<dyn Instruction>> {
+    fn next(&mut self) -> &mut Option<Box<dyn Instruction>> {
         &mut self.next
     }
 

@@ -6,7 +6,7 @@ pub struct Add {
 }
 
 impl Instruction for Add {
-    fn handle(&mut self, stack: &mut Vec<f64>, instruction: &String) {
+    fn handle(&mut self, stack: &mut Vec<f64>, _instruction: &String) {
         let first_value = stack.pop().unwrap();
         let second_value = stack.pop().unwrap();
         let result = first_value + second_value;
