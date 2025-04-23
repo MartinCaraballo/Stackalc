@@ -1,3 +1,4 @@
+use std::iter::Map;
 use super::{into_next, Instruction};
 use regex::Regex;
 
@@ -15,7 +16,7 @@ impl Ldc {
 }
 
 impl Instruction for Ldc {
-    fn handle(&mut self, stack: &mut Vec<f64>, instruction: &String) {
+    fn handle(&mut self, stack: &mut Vec<f64>, _memory: &mut Map<str, f64>, instruction: &String) {
         let value_to_push: Vec<&str> = instruction.split(':').collect();
 
         if let Some(value) = value_to_push.get(1) {

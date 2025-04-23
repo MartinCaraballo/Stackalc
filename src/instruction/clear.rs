@@ -1,3 +1,4 @@
+use std::iter::Map;
 use super::{into_next, Instruction};
 
 #[derive(Default)]
@@ -14,7 +15,7 @@ impl Clear {
 }
 
 impl Instruction for Clear {
-    fn handle(&mut self, stack: &mut Vec<f64>, _instruction: &String) {
+    fn handle(&mut self, stack: &mut Vec<f64>, _memory: &mut Map<str, f64>, _instruction: &String) {
         stack.clear();
     }
 

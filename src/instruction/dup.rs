@@ -1,3 +1,4 @@
+use std::iter::Map;
 use super::{into_next, Instruction};
 
 #[derive(Default)]
@@ -15,7 +16,7 @@ impl Dup {
 
 impl Instruction for Dup {
 
-    fn handle(&mut self, stack: &mut Vec<f64>, _instruction: &String) {
+    fn handle(&mut self, stack: &mut Vec<f64>, _memory: &mut Map<str, f64>, _instruction: &String) {
         let top = stack.last().unwrap();
 
         stack.push(top * 2.0)

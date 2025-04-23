@@ -11,6 +11,7 @@ mod pop;
 mod sub;
 mod clear;
 
+use std::iter::Map;
 pub use add::Add;
 pub use ceq::Ceq;
 pub use cgt::Cgt;
@@ -25,19 +26,18 @@ pub use sub::Sub;
 pub use clear::Clear;
 
 pub trait Instruction {
-
-    fn execute(&mut self, stack: &mut Vec<f64>, instruction: &String) {
+    fn execute(&mut self, stack: &mut Vec<f64>, memory: &mut Map<str, f64>, instruction: &String) {
         if self.can_handle(instruction) {
-            self.handle(stack, instruction);
+            self.handle(stack, memory, instruction);
 
         } else {
             if let Some(next) = &mut self.next() {
-                next.execute(stack, instruction);
+                next.execute(stack, memory, instruction);
             }
         }
     }
 
-    fn handle(&mut self, stack: &mut Vec<f64>, instruction: &String);
+    fn handle(&mut self, stack: &mut Vec<f64>, memory: &mut Map<str, f64>, instruction: &String);
     fn next(&mut self) -> &mut Option<Box<dyn Instruction>>;
     fn can_handle(&mut self, instruction: &String) -> bool;
 }
