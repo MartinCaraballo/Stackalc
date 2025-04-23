@@ -1,12 +1,12 @@
 mod instruction;
 
-use std::iter::Map;
-use instruction::{Add, Ceq, Cgt, Clt, Div, Dup, Ldc, Mul, Neg, Pop, Sub, Clear};
+use std::collections::HashMap;
+use instruction::{Add, Ceq, Cgt, Clt, Div, Dup, Ldc, Mul, Neg, Pop, Sub, Clear, Ldv, Stv};
 use crate::instruction::Instruction;
 
 fn main() {
     let stack: &mut Vec<f64> = &mut Vec::new();
-    let memory: Map<str, f64> = &mut Map::new(<str, f64>::new());
+    let memory: &mut HashMap<String, f64> = &mut HashMap::new();
 
     let add = Add::default();
     let ceq = Ceq::new(add);
@@ -19,7 +19,10 @@ fn main() {
     let neg = Neg::new(mul);
     let pop = Pop::new(neg);
     let sub = Sub::new(pop);
-    let mut clear = Clear::new(sub);
+    let clear = Clear::new(sub);
+    let ldv = Ldv::new(clear);
+    let mut stv = Stv::new(ldv);
+
 
     loop {
         let mut instructions = String::new();
@@ -27,7 +30,7 @@ fn main() {
         let instructions: Vec<&str> = instructions.split(' ').collect();
 
         for instruction in instructions {
-            clear.execute(stack, &instruction.trim().to_string());
+            stv.execute(stack, memory, &instruction.trim().to_string());
         }
         println!("{:?}", stack)
     }

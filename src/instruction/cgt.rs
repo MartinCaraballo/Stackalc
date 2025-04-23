@@ -1,5 +1,5 @@
-use std::iter::Map;
 use super::{into_next, Instruction};
+use std::collections::HashMap;
 
 #[derive(Default)]
 pub struct Cgt {
@@ -16,7 +16,7 @@ impl Cgt {
 
 impl Instruction for Cgt {
 
-    fn handle(&mut self, stack: &mut Vec<f64>, _memory: &mut Map<str, f64>, _instruction: &String) {
+    fn handle(&mut self, stack: &mut Vec<f64>, _memory: &mut HashMap<String, f64>, _instruction: &String) {
         let first_value = stack.pop().unwrap();
         let second_value = stack.pop().unwrap();
 

@@ -1,4 +1,4 @@
-use std::iter::Map;
+use std::collections::HashMap;
 use super::{into_next, Instruction};
 
 #[derive(Default)]
@@ -16,7 +16,7 @@ impl Div {
 
 impl Instruction for Div {
 
-    fn handle(&mut self, stack: &mut Vec<f64>, _memory: &mut Map<str, f64>, _instruction: &String) {
+    fn handle(&mut self, stack: &mut Vec<f64>, _memory: &mut HashMap<String, f64>, _instruction: &String) {
         let first_value = stack.pop().unwrap();
         let second_value = stack.pop().unwrap();
         let result = first_value / second_value;

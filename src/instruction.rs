@@ -10,8 +10,10 @@ mod neg;
 mod pop;
 mod sub;
 mod clear;
+mod ldv;
+mod stv;
 
-use std::iter::Map;
+use std::collections::HashMap;
 pub use add::Add;
 pub use ceq::Ceq;
 pub use cgt::Cgt;
@@ -24,9 +26,11 @@ pub use neg::Neg;
 pub use pop::Pop;
 pub use sub::Sub;
 pub use clear::Clear;
+pub use ldv::Ldv;
+pub use stv::Stv;
 
 pub trait Instruction {
-    fn execute(&mut self, stack: &mut Vec<f64>, memory: &mut Map<str, f64>, instruction: &String) {
+    fn execute(&mut self, stack: &mut Vec<f64>, memory: &mut HashMap<String, f64>, instruction: &String) {
         if self.can_handle(instruction) {
             self.handle(stack, memory, instruction);
 
@@ -37,7 +41,7 @@ pub trait Instruction {
         }
     }
 
-    fn handle(&mut self, stack: &mut Vec<f64>, memory: &mut Map<str, f64>, instruction: &String);
+    fn handle(&mut self, stack: &mut Vec<f64>, memory: &mut HashMap<String, f64>, instruction: &String);
     fn next(&mut self) -> &mut Option<Box<dyn Instruction>>;
     fn can_handle(&mut self, instruction: &String) -> bool;
 }
