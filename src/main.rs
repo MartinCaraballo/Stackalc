@@ -32,6 +32,9 @@ fn main() {
 
         for instruction in instructions {
             rng.execute(stack, memory, &instruction.trim().to_string());
+            if instruction.eq("ret") {
+                break;
+            }
         }
         println!("{:?}", stack)
     }
